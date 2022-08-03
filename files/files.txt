@@ -1,0 +1,17 @@
+100        aleatório
+1.000      aleatório
+10.000     aleatório
+100.000    aleatório
+1.000.000  aleatório
+
+100        ordenado ascendentemente
+1.000      ordenado ascendentemente
+10.000     ordenado ascendentemente
+100.000    ordenado ascendentemente
+1.000.000  ordenado ascendentemente
+
+100        ordenado descendentemente 
+1.000      ordenado descendentemente
+10.000     ordenado descendentemente
+100.000    ordenado descendentemente
+1.000.000  ordenado descendentemente
