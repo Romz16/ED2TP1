@@ -43,36 +43,34 @@ int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
 }
 
 int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
-    // tipoIndice tabela[MAXTABELA];
-    // FILE *arq; tipoItem x; int pos, cont;
-    // // abre o arquivo de dados
+    tipoIndice tabela[MAXTABELA];
+    FILE *arq; tipoItem x; 
+    int pos, cont;
 
-    // if ((arq = fopen("livros.bin","rb")) == NULL) {
-    //     printf("Erro na abertura do arquivo\n"); return 0;
-    // }
-    // // gera a tabela de índice das páginas
-    // cont = 0; pos = 0;
+    // abre o arquivo de dados
+    if ((arq = fopen("files/100.bin","rb")) == NULL) {
+        printf("Erro na abertura do arquivo\n"); return 0;
+    }
+    // gera a tabela de índice das páginas
+    cont = 0; pos = 0;
+    while (fread(&x, sizeof(x), 1, arq) == 1) {
+        cont++;
+        if (cont%ITENSPAGINA == 1) {
+            tabela[pos].chave = x.chave;
+            tabela[pos].posicao = pos+1;
+            pos++;
+        }
 
-    // while (fread(&x, sizeof(x), 1, arq) == 1) {
-    //     cont++;
-    //     if (cont%ITENSPAGINA == 1) {
-    //         tabela[pos].chave = x.chave;
-    //         tabela[pos].posicao = pos+1;
-    //         pos++;
-    //     }
+        fflush (stdout);
+        printf("Código do livro desejado:"); scanf("%i", x.chave);
 
-    //     fflush (stdout);
-    //     printf("Código do livro desejado:"); scanf("%i", x.chave);
+        // ativa a função de pesquisa
+        if (pesquisa (tabela, pos, &x, arq))
+            printf ("Livro %s (codigo %d) foi localizado", x.titulo, x.chave);
+        else
+            printf ("Livro de código %d nao foi localizado",x.chave);
 
-    //     // ativa a função de pesquisa
-    //     if (pesquisa (tabela, pos, &x, arq))
-    //         printf ("Livro %s (codigo %d) foi localizado", x.titulo, x.chave);
-    //     else
-    //         printf ("Livro de código %d nao foi localizado",x.chave);
-
-    //     fclose (arq);
-    //     return 0;
-    // }
-    printf("------------------------\n");
-    return 1;
+        fclose (arq);
+        return 0;
+    }
 }
