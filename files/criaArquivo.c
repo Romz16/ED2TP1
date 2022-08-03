@@ -15,7 +15,7 @@ typedef struct{
     long int dado1;
     char dado2[1000];
     char dado3[5000];
-}registro;
+}tipoItem;
 
 /*
 Diretivas de Compilação
@@ -39,7 +39,7 @@ char *rand_string(char *str, int size){
 
 
 int main(int argc, char *argv[]){
-    registro registro1;
+    tipoItem registro1;
     FILE *arquivo;
     int tamanho = 100;
 
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]){
         }
         registro1.dado3[size] = '\0';
 
-        fwrite(&registro1, sizeof(registro), 1, arquivo);
+        fwrite(&registro1, sizeof(tipoItem), 1, arquivo);
 
     }
 

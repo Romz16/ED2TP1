@@ -10,6 +10,14 @@
 #include <string.h>
 #include <time.h>
 
+#include "headers/tipoItem.h"
+#include "headers/arvoreB*.h"
+#include "headers/arvoreB.h"
+#include "headers/arvoreBinaria.h"
+#include "headers/sequencialIndexado.h"
+
+
+
 /*
 pesquisa <método> <quantidade> <situação> <chave> [-P]
 
@@ -26,9 +34,58 @@ aleatoriamente);
 
 [-P] representa um argumento opcional que deve ser colocado quando se deseja que as chaves de 
 pesquisa dos registros do arquivo considerado sejam apresentadas na tela.
+
+*/
+
+/*
+Diretivas de Compilação
+
+gcc main.c -o main.exe -Wall
+./main.exe pesquisa 3 400 2 150 [-P]
 */
 
 int main(int argc, char *argv[]){
+    
+    if(argc != 6 && argc != 7)
+        printf("Erro\n"); //exit(1);
+
+    char pesquisa[10];
+    int metodo = atoi(argv[2]);
+    int quantidade = atoi(argv[3]);
+    int situacao = atoi(argv[4]);
+    int chave = atoi(argv[5]);
+    char p[5] = "----\0";
+
+    if(argc == 7) strcpy(p, argv[6]);
+    strcpy(pesquisa, argv[1]);
+
+    //validar argumentos entrada
+    if(strcmp(pesquisa, "pesquisa") != 0)
+        printf("Erro\n"); //exit(1);
+    if(metodo != 1 && metodo != 2 && metodo != 3 && metodo != 4)
+        printf("Erro\n"); //exit(1);
+    if(quantidade <= 0 || quantidade > 1000000)
+        printf("Erro\n"); //exit(1);
+    if(situacao != 1 && situacao != 2 && situacao != 3)
+        printf("Erro\n"); //exit(1);
+    //chave inteiro qualquer
+    //p argumento adicional
+
+    printf("%s %i %i %i %i %s\n", pesquisa, metodo, quantidade, situacao, chave, p);
+
+    switch (metodo){
+    case 1: sequencialIndexado(quantidade, situacao, chave, p);
+        break;
+    case 2: 
+        break;
+    case 3: 
+        break;
+    case 4: 
+        break;
+
+    default: printf("Erro\n"); exit(1); 
+        break;
+    }
 
 
 
