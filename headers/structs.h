@@ -7,8 +7,7 @@ typedef struct{
     long int dado1;
     char dado2[1000];
     char dado3[5000];
-
-    char titulo[100]
+    char titulo[100];
 }tipoItem;
 
 typedef struct {

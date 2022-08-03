@@ -1,16 +1,9 @@
-#include <assert.h>
-#include <ctype.h>
-#include <locale.h>
-#include <math.h>
-#include <setjmp.h>
-#include <signal.h>
-#include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <stdlib.h>
 
-#include "headers/tipoItem.h"
+#include "headers/structs.h"
 #include "headers/arvoreB*.h"
 #include "headers/arvoreB.h"
 #include "headers/arvoreBinaria.h"
@@ -35,13 +28,6 @@ aleatoriamente);
 [-P] representa um argumento opcional que deve ser colocado quando se deseja que as chaves de 
 pesquisa dos registros do arquivo considerado sejam apresentadas na tela.
 
-*/
-
-/*
-Diretivas de Compilação
-
-gcc main.c -o main.exe -Wall
-./main.exe pesquisa 3 400 2 150 [-P]
 */
 
 int main(int argc, char *argv[]){
