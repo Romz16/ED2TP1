@@ -1,10 +1,21 @@
 #include <stdio.h>
-#include "headers/sequencialIndexado.h"
+
 
 #define ITENSPAGINA 4
 #define MAXTABELA 100
 
 // definição de uma entrada da tabela de índice das páginas
+
+typedef struct{
+    int chave;
+    char titulo[100];
+}tipoItem;
+
+typedef struct {
+    int posicao;
+    int chave;
+}tipoIndice;
+
 
 int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
     tipoItem pagina[ITENSPAGINA];
@@ -15,20 +26,18 @@ int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
     i = 0;
     while (i < tam && tab[i].chave <= item->chave) i++;
 
-    // caso a chave desejada seja menor que a 1a chave, o item não existe no arquivo
+    // caso a chave desejada seja menor que a 1a chave, o item
+    // não existe no arquivo
     if (i == 0) return 0;
 
     else {
         // a ultima página pode não estar completa
         if (i < tam) 
             quantitens = ITENSPAGINA;
-        else {
-            fseek (arq, 0, SEEK_END);
-            quantitens = (ftell(arq)/sizeof(tipoItem))%ITENSPAGINA;
-
-            if(quantitens == 0)
-                quantitens = ITENSPAGINA;
-        }
+            else {
+                fseek (arq, 0, SEEK_END);
+                quantitens = (ftell(arq)/sizeof(tipoItem))%ITENSPAGINA;
+            }
         
         // lê a página desejada do arquivo
         desloc = (tab[i-1].posicao-1)*ITENSPAGINA*sizeof(tipoItem);
@@ -36,7 +45,6 @@ int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
         fread (&pagina, sizeof(tipoItem), quantitens, arq);
 
         // pesquisa sequencial na página lida
-        // Melhorar a pesquisa ---------------------
         for (i=0; i < quantitens; i++)
             if (pagina[i].chave == item->chave) {
                 *item = pagina[i]; return 1;
@@ -45,21 +53,18 @@ int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
     }
 }
 
-int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
+int main(){
     tipoIndice tabela[MAXTABELA];
     FILE *arq; tipoItem x; 
     int pos, cont;
 
-    // abre o arquivo de dados---------------------
-    // fazer adequada do escolha do arquivo
+    // abre o arquivo de dados
     if ((arq = fopen("files/100.bin","rb")) == NULL) {
         printf("Erro na abertura do arquivo\n"); return 0;
     }
-
     // gera a tabela de índice das páginas
     cont = 0; pos = 0;
     while (fread(&x, sizeof(x), 1, arq) == 1) {
-        //Mudar. Usar um fread pra ler 4 registro e depois ir sobrepondo ---------------------
         cont++;
         if (cont%ITENSPAGINA == 1) {
             tabela[pos].chave = x.chave;
@@ -67,14 +72,14 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
             pos++;
         }
 
-        x.chave = chave;
+        //fflush (stdout);
+        printf("Código do livro desejado:"); scanf("%i", x.chave);
 
         // ativa a função de pesquisa
-        // Mudar a saida ---------------------
         if (pesquisa (tabela, pos, &x, arq))
-            printf ("Registro %li (codigo %d) foi localizado", x.dado1, x.chave);
+            printf ("Livro %s (codigo %d) foi localizado", x.titulo, x.chave);
         else
-            printf ("Registro de código %d nao foi localizado", x.chave);
+            printf ("Livro de código %d nao foi localizado", x.chave);
 
         fclose (arq);
         return 0;
