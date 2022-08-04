@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 
+
 typedef struct{
     int chave;
     long int dado1;
@@ -31,7 +32,7 @@ char *rand_string(char *str, int size){
 }
 
 
-int main(int argc, char *argv[]){
+int main(){
     tipoItem registro1;
     FILE *arquivo;
     int tamanho = 100;

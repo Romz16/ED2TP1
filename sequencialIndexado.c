@@ -50,9 +50,9 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
     FILE *arq; tipoItem x; 
     int pos, cont;
 
-    // abre o arquivo de dados---------------------
+    // abre o arquivo de registros---------------------
     // fazer adequada do escolha do arquivo
-    if ((arq = fopen("files/100.bin","rb")) == NULL) {
+    if ((arq = fopen("files/file100.bin","rb")) == NULL) {
         printf("Erro na abertura do arquivo\n"); return 0;
     }
 
@@ -72,11 +72,12 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
         // ativa a função de pesquisa
         // Mudar a saida ---------------------
         if (pesquisa (tabela, pos, &x, arq))
-            printf ("Registro %li (codigo %d) foi localizado", x.dado1, x.chave);
+            printf ("Registro %li (codigo %d) foi localizado %s\n", x.dado1, x.chave, p);
         else
-            printf ("Registro de código %d nao foi localizado", x.chave);
+            printf ("Registro de código %d nao foi localizado\n", x.chave);
 
         fclose (arq);
         return 0;
     }
+    return 0;
 }
