@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "headers/sequencialIndexado.h"
+#include "headers/criaArquivo.h"
 
 #define ITENSPAGINA 4
 #define MAXTABELA 100
@@ -47,37 +50,34 @@ int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
 
 int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
     tipoIndice tabela[MAXTABELA];
-    FILE *arq; tipoItem x; 
-    int pos, cont;
+    tipoItem itemTmp[ITENSPAGINA]; 
 
     // abre o arquivo de registros---------------------
     // fazer adequada do escolha do arquivo
-    if ((arq = fopen("files/file100.bin","rb")) == NULL) {
-        printf("Erro na abertura do arquivo\n"); return 0;
-    }
+    FILE *arquivo = escolherArquivo();
 
     // gera a tabela de índice das páginas
-    cont = 0; pos = 0;
-    while (fread(&x, sizeof(x), 1, arq) == 1) {
-        //Mudar. Usar um fread pra ler 4 registro e depois ir sobrepondo ---------------------
-        cont++;
-        if (cont%ITENSPAGINA == 1) {
-            tabela[pos].chave = x.chave;
-            tabela[pos].posicao = pos+1;
-            pos++;
-        }
+    // Mudar. Usar um fread pra ler 4 registro e depois ir sobrepondo ---------------------
+    int pos = 0;
+    while (fread(&itemTmp, sizeof(tipoItem)*4, 4, arquivo) == 1) {
+        printf("----%i----\n", itemTmp[0].chave);
 
-        x.chave = chave;
-
-        // ativa a função de pesquisa
-        // Mudar a saida ---------------------
-        if (pesquisa (tabela, pos, &x, arq))
-            printf ("Registro %li (codigo %d) foi localizado %s\n", x.dado1, x.chave, p);
-        else
-            printf ("Registro de código %d nao foi localizado\n", x.chave);
-
-        fclose (arq);
-        return 0;
+        tabela[pos].chave = itemTmp[0].chave;
+        tabela[pos].posicao = pos+1;
+        pos++;
     }
+
+    exit(1);
+
+    itemTmp[0].chave = chave;
+
+    // ativa a função de pesquisa
+    // Mudar a saida ---------------------
+    if (pesquisa (tabela, pos, &itemTmp[0], arquivo))
+        printf ("Registro %li (codigo %d) foi localizado %s\n", itemTmp[0].dado1, itemTmp[0].chave, p);
+    else
+        printf ("Registro de código %d nao foi localizado\n", itemTmp[0].chave);
+
+    fclose (arquivo);
     return 0;
 }

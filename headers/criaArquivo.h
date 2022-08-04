@@ -4,6 +4,7 @@
 #define CRIA_ARQUIVO
 
 int criaArquivo();
-char *rand_string(char *str, int size);
+void rand_string(char *str, int size);
+FILE *escolherArquivo();
 
 #endif
