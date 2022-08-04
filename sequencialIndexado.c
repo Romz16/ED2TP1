@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 
 #include "headers/sequencialIndexado.h"
 #include "headers/criaArquivo.h"
@@ -60,11 +62,12 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
     // Mudar. Usar um fread pra ler 4 registro e depois ir sobrepondo ---------------------
     int pos = 0;
     while (fread(&itemTmp, sizeof(tipoItem)*4, 4, arquivo) == 1) {
-        printf("----%i----\n", itemTmp[0].chave);
+        printf("----%i %i %i %i----\n", itemTmp[0].chave, itemTmp[1].chave, itemTmp[2].chave, itemTmp[3].chave);
 
         tabela[pos].chave = itemTmp[0].chave;
         tabela[pos].posicao = pos+1;
         pos++;
+        
     }
 
     exit(1);
