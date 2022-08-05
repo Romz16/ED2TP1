@@ -53,6 +53,8 @@ int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
 int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
     tipoIndice tabela[MAXTABELA];
     tipoItem itemTmp[ITENSPAGINA]; 
+    tipoItemTeste itemTmpTeste[2]; 
+
 
     // abre o arquivo de registros---------------------
     // fazer adequada do escolha do arquivo
@@ -62,14 +64,23 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
     // Mudar. Usar um fread pra ler 4 registro e depois ir sobrepondo ---------------------
     int pos = 0;
     while (fread(&itemTmp, sizeof(tipoItem)*4, 4, arquivo) == 1) {
-        printf("----%i %i %i %i----\n", itemTmp[0].chave, itemTmp[1].chave, itemTmp[2].chave, itemTmp[3].chave);
+        printf("----    %i %i %i %i     ----\n", itemTmp[0].chave, itemTmp[1].chave, itemTmp[2].chave, itemTmp[3].chave);
+        printf("----    %li %li %li %li ----\n", itemTmp[0].dado1, itemTmp[1].dado1, itemTmp[2].dado1, itemTmp[3].dado1);
+        printf("----    %s %s %s %s     ----\n", itemTmp[0].dado2, itemTmp[1].dado2, itemTmp[2].dado2, itemTmp[3].dado2);
+        printf("----    %s %s %s %s     ----\n", itemTmp[0].dado3, itemTmp[1].dado3, itemTmp[2].dado3, itemTmp[3].dado3);
+
 
         tabela[pos].chave = itemTmp[0].chave;
         tabela[pos].posicao = pos+1;
         pos++;
-        
+    
     }
 
+    for (int i = 0; i < 5; i++){
+        fread(&itemTmpTeste, sizeof(tipoItemTeste)*2, 2, arquivo);
+        printf("----    %i %s %i %s     ----\n", itemTmpTeste[0].chave, itemTmpTeste[0].string, itemTmpTeste[1].chave, itemTmpTeste[1].string);
+    }
+    
     exit(1);
 
     itemTmp[0].chave = chave;

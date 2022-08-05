@@ -31,7 +31,7 @@ pesquisa dos registros do arquivo considerado sejam apresentadas na tela.
 */
 
 int main(int argc, char *argv[]){
-    
+
     if(argc != 6 && argc != 7){
         printf("Erro1\n"); return 1;
     }

@@ -5,12 +5,6 @@
 
 #include "headers/criaArquivo.h"
 
-/*
-Diretivas de Compilação
-
-gcc criaArquivo.c -o criaArquivo.exe -Wall
-./criaArquivo.exe 
-*/
 
 FILE *escolherArquivo(){
     FILE *arquivo = NULL;
@@ -39,9 +33,11 @@ void randString(char *str, int size){
 
 
 int criaArquivo(){
-    tipoItem registro1;
+    tipoItem registro;
     FILE *arquivo;
-    int tamanho = 100;
+    int tamanho = 10;
+
+    //tipoItemTeste teste;
 
     srand(time(NULL));
 
@@ -51,13 +47,17 @@ int criaArquivo(){
     } 
 
     for (int i = 0; i < tamanho; i++){
-        registro1.chave = i;
-        registro1.dado1 = rand();
+        registro.chave = i;
+        registro.dado1 = rand();
 
-        randString(registro1.dado2, 1000);
-        randString(registro1.dado3, 5000);
+        randString(registro.dado2, 1000);
+        randString(registro.dado3, 5000);
 
-        fwrite(&registro1, sizeof(tipoItem), 1, arquivo);
+        fwrite(&registro, sizeof(tipoItem), 1, arquivo);
+
+        // printf("Chave: "); scanf("%i", &teste.chave);
+        // printf("String: "); scanf("%s", teste.string);
+        // fwrite(&teste, sizeof(tipoItemTeste), 1, arquivo);
 
     }
 
