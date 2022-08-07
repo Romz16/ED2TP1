@@ -3,8 +3,8 @@
 #ifndef CRIA_ARQUIVO
 #define CRIA_ARQUIVO
 
-int criaArquivo();
+int criaArquivo(int quantidade, int situacao);
 void rand_string(char *str, int size);
-FILE *escolherArquivo();
+FILE *abrirArquivo(int quantidade, int situacao);
 
 #endif

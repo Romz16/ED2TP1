@@ -6,7 +6,7 @@
 #include "headers/criaArquivo.h"
 
 
-FILE *escolherArquivo(){
+FILE *abrirArquivo(int quantidade, int situacao){
     FILE *arquivo = NULL;
 
     arquivo = fopen("files/file100.bin", "rb");
@@ -32,10 +32,11 @@ void randString(char *str, int size){
 }
 
 
-int criaArquivo(){
+int criaArquivo(int quantidade, int situacao){
     tipoItem registro;
     FILE *arquivo;
-    int tamanho = 10;
+    
+    quantidade = 10;
 
     srand(time(NULL));
 
@@ -44,7 +45,7 @@ int criaArquivo(){
         return 0;
     } 
 
-    for (int i = 0; i < tamanho; i++){
+    for (int i = 0; i < quantidade; i++){
         registro.chave = i;
         registro.dado1 = rand();
 

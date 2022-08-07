@@ -53,7 +53,7 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
 
     // abre o arquivo de registros---------------------
     // fazer adequada do escolha do arquivo
-    FILE *arquivo = escolherArquivo();
+    FILE *arquivo = abrirArquivo(MAXTABELA, 1);
 
     // ----------------
     // gera a tabela de índice das páginas
