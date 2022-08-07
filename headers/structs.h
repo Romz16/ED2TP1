@@ -9,11 +9,6 @@ typedef struct{
     char dado3[5000];
 }tipoItem;
 
-// typedef struct{
-//     int chave;
-//     char string[5];
-// }tipoItemTeste;
-
 typedef struct {
     int posicao;
     int chave;

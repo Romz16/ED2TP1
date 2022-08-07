@@ -37,8 +37,6 @@ int criaArquivo(){
     FILE *arquivo;
     int tamanho = 10;
 
-    //tipoItemTeste teste;
-
     srand(time(NULL));
 
     if((arquivo = fopen("files/file100.bin", "wb")) == NULL){
@@ -54,10 +52,6 @@ int criaArquivo(){
         randString(registro.dado3, 5000);
 
         fwrite(&registro, sizeof(tipoItem), 1, arquivo);
-
-        // printf("Chave: "); scanf("%i", &teste.chave);
-        // printf("String: "); scanf("%s", teste.string);
-        // fwrite(&teste, sizeof(tipoItemTeste), 1, arquivo);
 
     }
 

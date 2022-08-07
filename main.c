@@ -53,7 +53,7 @@ int main(int argc, char *argv[]){
     case 4: 
         break;
 
-    default: printf("Erro\n"); return 1; 
+    default: printf("Erro7\n"); return 1; 
         break;
     }
 

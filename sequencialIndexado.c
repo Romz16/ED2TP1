@@ -50,8 +50,6 @@ int pesquisa (tipoIndice tab[], int tam, tipoItem* item, FILE *arq){
 int sequencialIndexado(int quantidade, int situacao, int chave, char p[]){
     tipoIndice tabela[MAXTABELA];
     tipoItem itemTmp[ITENSPAGINA]; 
-    //tipoItemTeste itemTmpTeste[4]; 
-    //tipoItem tmp; 
 
     // abre o arquivo de registros---------------------
     // fazer adequada do escolha do arquivo
