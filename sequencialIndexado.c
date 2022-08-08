@@ -5,9 +5,6 @@
 #include "headers/sequencialIndexado.h"
 #include "headers/criaArquivo.h"
 
-#define ITENSPAGINA 4
-#define MAXTABELA 100
-
 int pesquisa (tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int situacao, int itensPagina){
     tipoItem *pagina = (tipoItem*) malloc(sizeof(tipoItem) * itensPagina); 
     int i = 0, quantitens;
@@ -30,17 +27,17 @@ int pesquisa (tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int s
     else {
         // a ultima página pode não estar completa
         if (i < tamanho) 
-            quantitens = ITENSPAGINA;
+            quantitens = itensPagina;
         else {
             fseek (arq, 0, SEEK_END);
-            quantitens = (ftell(arq)/sizeof(tipoItem))%ITENSPAGINA;
+            quantitens = (ftell(arq)/sizeof(tipoItem))%itensPagina;
 
             if(quantitens == 0)
-                quantitens = ITENSPAGINA;
+                quantitens = itensPagina;
         }
         
         // lê a página desejada do arquivo
-        deslocamento = (tabela[i-1].posicao-1)*ITENSPAGINA*sizeof(tipoItem);
+        deslocamento = (tabela[i-1].posicao-1)*itensPagina*sizeof(tipoItem);
         fseek (arq, deslocamento, SEEK_SET);
         fread (pagina, sizeof(tipoItem), quantitens, arq);
 
@@ -48,8 +45,8 @@ int pesquisa (tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int s
         // Melhorar a pesquisa ---------------------
         for (i=0; i < quantitens; i++)
             if (pagina[i].chave == item->chave) {
-                free(pagina);
                 *item = pagina[i]; 
+                free(pagina);
                 return 1;
         }
         free(pagina);
@@ -68,9 +65,10 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
 
     // gera a tabela de índice das páginas
     int posicao = 0;
-    while (fread(itemTmp, sizeof(tipoItem)*4, 1, arquivo) == 1){
+    while (fread(itemTmp, sizeof(tipoItem)*itensPagina, 1, arquivo) == 1){
         if(strcmp("----", stringOP) != 0)
-            printf("%i\n%i\n%i\n%i\n", itemTmp[0].chave, itemTmp[1].chave, itemTmp[2].chave, itemTmp[3].chave);
+            for (int i = 0; i < itensPagina; i++)
+                printf("%i\n", itemTmp[i].chave);
             
         tabela[posicao].chave = itemTmp[0].chave;
         tabela[posicao].posicao = posicao+1;

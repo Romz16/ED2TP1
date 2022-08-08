@@ -12,7 +12,12 @@
 
 /*
 gcc *.c -o out.exe -Wall
-./out.exe pesquisa 1 100 2 50 [-P]
+./out.exe pesquisa 1 1000 2 50 [-P]
+
+gcc *.c -g 
+gdb ./a.out 
+run pesquisa 1 1000 2 50 [-P]
+quit
 */
 
 int main(int argc, char *argv[]){
