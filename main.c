@@ -12,7 +12,7 @@
 
 /*
 gcc *.c -o out.exe -Wall
-./out.exe pesquisa 1 100 3 50 [-P]
+./out.exe pesquisa 1 100 2 50 [-P]
 */
 
 int main(int argc, char *argv[]){

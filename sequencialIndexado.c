@@ -8,8 +8,8 @@
 #define ITENSPAGINA 4
 #define MAXTABELA 100
 
-int pesquisa (tipoIndice tabela[], int tamanho, int situacao, tipoItem* item, FILE *arq){
-    tipoItem pagina[ITENSPAGINA];
+int pesquisa (tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int situacao, int itensPagina){
+    tipoItem *pagina = (tipoItem*) malloc(sizeof(tipoItem) * itensPagina); 
     int i = 0, quantitens;
     long deslocamento;
     
@@ -20,6 +20,7 @@ int pesquisa (tipoIndice tabela[], int tamanho, int situacao, tipoItem* item, FI
         while (i < tamanho && tabela[i].chave >= item->chave) i++;
     else{
         printf("Arquivo desordenado nao permitido para pesquisa Sequencial Indexada\n");
+        free(pagina);
         return 0;
     }
 
@@ -41,21 +42,25 @@ int pesquisa (tipoIndice tabela[], int tamanho, int situacao, tipoItem* item, FI
         // lê a página desejada do arquivo
         deslocamento = (tabela[i-1].posicao-1)*ITENSPAGINA*sizeof(tipoItem);
         fseek (arq, deslocamento, SEEK_SET);
-        fread (&pagina, sizeof(tipoItem), quantitens, arq);
+        fread (pagina, sizeof(tipoItem), quantitens, arq);
 
         // pesquisa sequencial na página lida
         // Melhorar a pesquisa ---------------------
         for (i=0; i < quantitens; i++)
             if (pagina[i].chave == item->chave) {
-                *item = pagina[i]; return 1;
+                free(pagina);
+                *item = pagina[i]; 
+                return 1;
         }
+        free(pagina);
         return 0;
     }
 }
 
 int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[]){
-    tipoIndice *tabela = (tipoIndice*) malloc(sizeof(tipoIndice) * MAXTABELA);
-    tipoItem *itemTmp = (tipoItem*) malloc(sizeof(tipoItem) * ITENSPAGINA); 
+    int itensPagina = quantidade/25;
+    tipoIndice *tabela = (tipoIndice*) malloc(sizeof(tipoIndice) * quantidade/itensPagina);
+    tipoItem *itemTmp = (tipoItem*) malloc(sizeof(tipoItem) * itensPagina); 
 
     // abre o arquivo de registros---------------------
     // fazer adequada do escolha do arquivo
@@ -76,7 +81,7 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
 
     // ativa a função de pesquisa
     int returno;
-    if (pesquisa (tabela, posicao, situacao, &itemTmp[0], arquivo)){
+    if (pesquisa (tabela, &itemTmp[0], arquivo, posicao, situacao, itensPagina)){
         printf("Registro foi localizado. Dado 1: %li\n", itemTmp[0].dado1);
         printf("Numero Comparacoes Pesquisa: %i\n", contComparacaoPesquisa);
         printf("Numero Tranferencia Pesquisa: %i\n", contTranferenciaPesquisa);
