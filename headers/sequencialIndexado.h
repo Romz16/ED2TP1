@@ -3,7 +3,8 @@
 #ifndef SEQUENCIAL_INDEXADO
 #define SEQUENCIAL_INDEXADO
 
-int sequencialIndexado(int quantidade, int situacao, int chave, char p[]);
-int pesquisaSequencialIndexado(tipoIndice tab[], int tam, tipoItem* item, FILE *arq);
+int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[]);
+int pesquisa (tipoIndice tabela[], int tamanho, int situacao, tipoItem* item, FILE *arq);
+
 
 #endif

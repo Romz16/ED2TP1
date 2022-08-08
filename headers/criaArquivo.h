@@ -4,7 +4,8 @@
 #define CRIA_ARQUIVO
 
 int criaArquivo(int quantidade, int situacao);
-void rand_string(char *str, int size);
+void randString(char *str, int size);
+void embaralhaVetor(int *array, int n);
 FILE *abrirArquivo(int quantidade, int situacao);
 
 #endif

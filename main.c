@@ -12,6 +12,8 @@
 
 int main(int argc, char *argv[]){
 
+    //criaArquivo(100, 2); exit(1);
+
     if(argc != 6 && argc != 7){
         printf("Erro1\n"); return 1;
     }
