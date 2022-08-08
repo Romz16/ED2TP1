@@ -2,6 +2,11 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+int contTranferenciaIndexacao;
+int contTranferenciaPesquisa;
+int contComparacaoPesquisa;
+int contComparacaoIndexacao;
+
 typedef struct{
     int chave;
     long int dado1;

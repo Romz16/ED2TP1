@@ -10,9 +10,32 @@
 #include "headers/arvoreBinaria.h"
 #include "headers/sequencialIndexado.h"
 
+/*
+gcc *.c -o out.exe -Wall
+./out.exe pesquisa 1 100 3 50 [-P]
+*/
+
 int main(int argc, char *argv[]){
 
-    //criaArquivo(100, 2); exit(1);
+    // criaArquivo(100, 1);
+    // criaArquivo(100, 2);
+    // criaArquivo(100, 3);
+
+    // criaArquivo(1000, 1);
+    // criaArquivo(1000, 2);
+    // criaArquivo(1000, 3);
+
+    // criaArquivo(10000, 1);
+    // criaArquivo(10000, 2);
+    // criaArquivo(10000, 3);
+
+    // criaArquivo(100000, 1);
+    // criaArquivo(100000, 2);
+    // criaArquivo(100000, 3);
+
+    // criaArquivo(1000000, 1);
+    // criaArquivo(1000000, 2);
+    // criaArquivo(1000000, 3);
 
     if(argc != 6 && argc != 7){
         printf("Erro1\n"); return 1;
@@ -24,6 +47,11 @@ int main(int argc, char *argv[]){
     int situacao = atoi(argv[4]);
     int chave = atoi(argv[5]);
     char p[5] = "----\0";
+
+    contTranferenciaPesquisa = 0;
+    contTranferenciaIndexacao = 0;
+    contComparacaoPesquisa = 0;
+    contComparacaoIndexacao = 0;
 
     if(argc == 7) strcpy(p, argv[6]);
     strcpy(pesquisa, argv[1]);
@@ -53,9 +81,6 @@ int main(int argc, char *argv[]){
     case 3: 
         break;
     case 4: 
-        break;
-
-    default: printf("Erro7\n"); return 1; 
         break;
     }
 

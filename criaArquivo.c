@@ -9,14 +9,37 @@
 FILE *abrirArquivo(int quantidade, int situacao){
     FILE *arquivo = NULL;
 
-    arquivo = fopen("files/file100.bin", "rb");
+    char nomeArquivo[50] = "files/";
+    char stringQuantidade[10];
 
-    if (arquivo){
-        return arquivo;
+    if(situacao == 1){
+        sprintf(stringQuantidade, "%d", quantidade);
+        strcat(nomeArquivo, stringQuantidade);
+        strcat(nomeArquivo, "Crescente.bin");
     }
-    
-    printf("Erro Ao Abrir Arquivo");
-    return NULL; // error
+    else if(situacao == 2){
+        sprintf(stringQuantidade, "%d", quantidade);
+        strcat(nomeArquivo, stringQuantidade);
+        strcat(nomeArquivo, "Decrescente.bin");
+    }
+    else if(situacao == 3){
+        sprintf(stringQuantidade, "%d", quantidade);
+        strcat(nomeArquivo, stringQuantidade);
+        strcat(nomeArquivo, "Aleatorio.bin");
+    }
+
+    if((arquivo = fopen(nomeArquivo, "rb")) == NULL){
+        printf("Criando Arquivo\n");
+        criaArquivo(quantidade, situacao);
+        arquivo = fopen(nomeArquivo, "rb");
+    }
+    if(arquivo == NULL){
+        printf("Erro Ao Abrir Arquivo");
+        return NULL; // error
+    }
+
+    return arquivo;
+
 }
 
 void randString(char *str, int size){
@@ -48,11 +71,30 @@ void embaralhaVetor(int *array, int n){
 int criaArquivo(int quantidade, int situacao){
     tipoItem registro;
     FILE *arquivo;
+    char nomeArquivo[50] = "files/";
+    char stringQuantidade[10];
     int *vetorQuantidade = (int*) malloc(sizeof(int) * quantidade);
 
     srand(time(NULL));
 
-    if((arquivo = fopen("files/file100.bin", "wb")) == NULL){
+    if(situacao == 1){
+        sprintf(stringQuantidade, "%d", quantidade);
+        strcat(nomeArquivo, stringQuantidade);
+        strcat(nomeArquivo, "Crescente.bin");
+    }
+    else if(situacao == 2){
+        sprintf(stringQuantidade, "%d", quantidade);
+        strcat(nomeArquivo, stringQuantidade);
+        strcat(nomeArquivo, "Decrescente.bin");
+    }
+    else if(situacao == 3){
+        sprintf(stringQuantidade, "%d", quantidade);
+        strcat(nomeArquivo, stringQuantidade);
+        strcat(nomeArquivo, "Aleatorio.bin");
+    }
+
+
+    if((arquivo = fopen(nomeArquivo, "wb")) == NULL){
         printf("ERRO\n");
         return 0;
     } 
@@ -70,7 +112,7 @@ int criaArquivo(int quantidade, int situacao){
         }
     }
     
-    if(situacao == 2){
+    else if(situacao == 2){
         for (int i = quantidade-1; i >= 0; i--){
             registro.chave = i;
             registro.dado1 = rand();
@@ -83,7 +125,7 @@ int criaArquivo(int quantidade, int situacao){
         }
     }
 
-    if(situacao == 3){
+    else if(situacao == 3){
         embaralhaVetor(vetorQuantidade, quantidade);
         for (int i = 0; i < quantidade; i++){
             registro.chave = vetorQuantidade[i];

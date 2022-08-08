@@ -15,10 +15,13 @@ int pesquisa (tipoIndice tabela[], int tamanho, int situacao, tipoItem* item, FI
     
     // procura pela página onde o item pode se encontrar
     if(situacao == 1)
-        while (i < tamanho && tabela[i].chave >= item->chave) i++;
-    if(situacao == 2)
         while (i < tamanho && tabela[i].chave <= item->chave) i++;
-
+    else if(situacao == 2)
+        while (i < tamanho && tabela[i].chave >= item->chave) i++;
+    else{
+        printf("Arquivo desordenado nao permitido para pesquisa Sequencial Indexada\n");
+        return 0;
+    }
 
     // caso a chave desejada seja menor que a 1a chave, o item não existe no arquivo
     if (i == 0) return 0;
@@ -56,7 +59,7 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
 
     // abre o arquivo de registros---------------------
     // fazer adequada do escolha do arquivo
-    FILE *arquivo = abrirArquivo(MAXTABELA, 1);
+    FILE *arquivo = abrirArquivo(quantidade, situacao);
 
     // gera a tabela de índice das páginas
     int posicao = 0;
@@ -70,14 +73,19 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
     }
 
     itemTmp[0].chave = chave;
+
     // ativa a função de pesquisa
     int returno;
     if (pesquisa (tabela, posicao, situacao, &itemTmp[0], arquivo)){
-        printf ("Registro foi localizado. Dado 1: %li\n", itemTmp[0].dado1);
+        printf("Registro foi localizado. Dado 1: %li\n", itemTmp[0].dado1);
+        printf("Numero Comparacoes Pesquisa: %i\n", contComparacaoPesquisa);
+        printf("Numero Tranferencia Pesquisa: %i\n", contTranferenciaPesquisa);
+        printf("Numero Comparacoes Indexacao: %i\n", contComparacaoPesquisa);
+        printf("Numero Tranferencia Indexacao: %i\n", contTranferenciaPesquisa);
         returno = 1;
     }
     else{
-        printf ("Registro nao foi localizado. Chave %i\n", itemTmp[0].chave);
+        printf("Registro nao foi localizado. Chave %i\n", itemTmp[0].chave);
         returno = 0;
     }
 

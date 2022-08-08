@@ -15,3 +15,23 @@
 10.000     ordenado descendentemente
 100.000    ordenado descendentemente
 1.000.000  ordenado descendentemente
+
+criaArquivo(100, 1);
+criaArquivo(100, 2);
+criaArquivo(100, 3);
+
+criaArquivo(1000, 1);
+criaArquivo(1000, 2);
+criaArquivo(1000, 3);
+
+criaArquivo(10000, 1);
+criaArquivo(10000, 2);
+criaArquivo(10000, 3);
+
+criaArquivo(100000, 1);
+criaArquivo(100000, 2);
+criaArquivo(100000, 3);
+
+criaArquivo(1000000, 1);
+criaArquivo(1000000, 2);
+criaArquivo(1000000, 3);
