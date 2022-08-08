@@ -4,6 +4,6 @@
 #define SEQUENCIAL_INDEXADO
 
 int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[]);
-int SequencialIndexado(tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int situacao, int itensPagina);
+int PesquisaSequencialIndexado(tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int situacao, int itensPagina);
 
 #endif
