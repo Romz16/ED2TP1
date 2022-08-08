@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "headers/sequencialIndexado.h"
 #include "headers/criaArquivo.h"
@@ -20,6 +21,7 @@ int pesquisa (tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int s
         free(pagina);
         return 0;
     }
+    contComparacaoPesquisa = i;
 
     // caso a chave desejada seja menor que a 1a chave, o item não existe no arquivo
     if (i == 0) return 0;
@@ -43,11 +45,13 @@ int pesquisa (tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int s
 
         // pesquisa sequencial na página lida
         // Melhorar a pesquisa ---------------------
-        for (i=0; i < quantitens; i++)
+        for (i=0; i < quantitens; i++){
+            contComparacaoPesquisa++;
             if (pagina[i].chave == item->chave) {
                 *item = pagina[i]; 
                 free(pagina);
                 return 1;
+            }
         }
         free(pagina);
         return 0;
@@ -63,16 +67,22 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
     // fazer adequada do escolha do arquivo
     FILE *arquivo = abrirArquivo(quantidade, situacao);
 
+    //Medir o tempo de Execução
+    clock_t comeco = clock();
+    
     // gera a tabela de índice das páginas
     int posicao = 0;
     while (fread(itemTmp, sizeof(tipoItem)*itensPagina, 1, arquivo) == 1){
         if(strcmp("----", stringOP) != 0)
             for (int i = 0; i < itensPagina; i++)
-                printf("%i\n", itemTmp[i].chave);
-            
+                printf("%i ", itemTmp[i].chave);
+
+        printf("\n");
         tabela[posicao].chave = itemTmp[0].chave;
         tabela[posicao].posicao = posicao+1;
         posicao++;
+
+        contTranferenciaIndexacao++;
     }
 
     itemTmp[0].chave = chave;
@@ -80,11 +90,11 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
     // ativa a função de pesquisa
     int returno;
     if (pesquisa (tabela, &itemTmp[0], arquivo, posicao, situacao, itensPagina)){
-        printf("Registro foi localizado. Dado 1: %li\n", itemTmp[0].dado1);
+        printf("\nRegistro foi localizado. Dado 1: %li\n\n", itemTmp[0].dado1);
         printf("Numero Comparacoes Pesquisa: %i\n", contComparacaoPesquisa);
         printf("Numero Tranferencia Pesquisa: %i\n", contTranferenciaPesquisa);
         printf("Numero Comparacoes Indexacao: %i\n", contComparacaoPesquisa);
-        printf("Numero Tranferencia Indexacao: %i\n", contTranferenciaPesquisa);
+        printf("Numero Tranferencia Indexacao: %i\n\n", contTranferenciaPesquisa);
         returno = 1;
     }
     else{
@@ -95,6 +105,12 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
     fclose(arquivo);
     free(tabela);
     free(itemTmp);
+
+    clock_t fim = clock();
+    double tempoDecorrido = (double)(fim - comeco) / CLOCKS_PER_SEC;
+    printf("Tempo para fazer pesquisa: %lf\n", tempoDecorrido);
+    
+    
     return returno;
     
 }
