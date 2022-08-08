@@ -90,7 +90,8 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
     // ativa a função de pesquisa
     int returno;
     if (PesquisaSequencialIndexado(tabela, &itemTmp[0], arquivo, posicao, situacao, itensPagina)){
-        printf("\nRegistro foi localizado. Dado 1: %li\n\n", itemTmp[0].dado1);
+        printf("\n");
+        printf("Registro foi localizado. Dado 1: %li\n\n", itemTmp[0].dado1);
         printf("Numero Comparacoes Pesquisa: %i\n", contComparacaoPesquisa);
         printf("Numero Tranferencia Pesquisa: %i\n", contTranferenciaPesquisa);
         printf("Numero Comparacoes Indexacao: %i\n", contComparacaoPesquisa);
