@@ -6,7 +6,7 @@
 #include "headers/sequencialIndexado.h"
 #include "headers/criaArquivo.h"
 
-int pesquisa (tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int situacao, int itensPagina){
+int PesquisaSequencialIndexado(tipoIndice tabela[], tipoItem* item, FILE *arq, int tamanho, int situacao, int itensPagina){
     tipoItem *pagina = (tipoItem*) malloc(sizeof(tipoItem) * itensPagina); 
     int i = 0, quantitens;
     long deslocamento;
@@ -89,7 +89,7 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
 
     // ativa a função de pesquisa
     int returno;
-    if (pesquisa (tabela, &itemTmp[0], arquivo, posicao, situacao, itensPagina)){
+    if (PesquisaSequencialIndexado(tabela, &itemTmp[0], arquivo, posicao, situacao, itensPagina)){
         printf("\nRegistro foi localizado. Dado 1: %li\n\n", itemTmp[0].dado1);
         printf("Numero Comparacoes Pesquisa: %i\n", contComparacaoPesquisa);
         printf("Numero Tranferencia Pesquisa: %i\n", contTranferenciaPesquisa);
