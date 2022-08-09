@@ -19,4 +19,10 @@ typedef struct {
     int chave;
 }tipoIndice;
 
+typedef struct {
+    tipoItem registro;
+    int indiceFilhoDireita;
+    int indiceFilhoEsquerda;
+}tipoItemArvoreBinariaExterna;
+
 #endif

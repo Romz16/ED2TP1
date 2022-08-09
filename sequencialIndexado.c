@@ -73,6 +73,7 @@ int sequencialIndexado(int quantidade, int situacao, int chave, char stringOP[])
     // gera a tabela de índice das páginas
     int posicao = 0;
     while (fread(itemTmp, sizeof(tipoItem)*itensPagina, 1, arquivo) == 1){
+        
         if(strcmp("----", stringOP) != 0)
             for (int i = 0; i < itensPagina; i++)
                 printf("%i ", itemTmp[i].chave);
